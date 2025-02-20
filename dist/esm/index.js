@@ -2295,5 +2295,84 @@ const Page = ({ title, children }) => {
     return (jsxRuntimeExports.jsxs(Container, { "data-testid": 'page-container', children: [jsxRuntimeExports.jsx("h1", { children: title }), children] }));
 };
 
-export { Page };
+// src/components/Button/styled.ts
+const variants = {
+    primary: lt `
+        background-color: #007bff;
+        color: white;
+        &:hover {
+            background-color: #0056b3;
+        }
+    `,
+    secondary: lt `
+        background-color: #6c757d;
+        color: white;
+        &:hover {
+            background-color: #545b62;
+        }
+    `,
+    danger: lt `
+        background-color: #dc3545;
+        color: white;
+        &:hover {
+            background-color: #bd2130;
+        }
+    `,
+    outline: lt `
+        background-color: transparent;
+        border: 2px solid #007bff;
+        color: #007bff;
+        &:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    `,
+    text: lt `
+        background-color: transparent;
+        color: #007bff;
+        &:hover {
+            text-decoration: underline;
+        }
+    `,
+};
+const sizes = {
+    small: lt `
+        padding: 6px 12px;
+        font-size: 14px;
+    `,
+    medium: lt `
+        padding: 8px 16px;
+        font-size: 16px;
+    `,
+    large: lt `
+        padding: 10px 20px;
+        font-size: 18px;
+    `,
+};
+const StyledButton = dt.button `
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    ${({ variant }) => variants[variant || "primary"]}
+    ${({ size }) => sizes[size || "medium"]}
+
+    /* Apply full width styling if $fullWidth is true */
+    ${({ $fullWidth }) => $fullWidth &&
+    lt `
+            width: 100%;
+        `}
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+`;
+
+const Button = ({ children, variant = "primary", size = "medium", disabled = false, $fullWidth = false, onClick, }) => {
+    return (jsxRuntimeExports.jsx(StyledButton, { variant: variant, size: size, disabled: disabled, "$fullWidth": $fullWidth, onClick: onClick, "data-testid": "button", children: children }));
+};
+
+export { Button, Page };
 //# sourceMappingURL=index.js.map
