@@ -68,7 +68,7 @@ jobs:
           command: npm publish --access public
 
 workflows:
-  version: 2
+  version: 1
   build_and_publish:
     jobs:
       - lint_code
