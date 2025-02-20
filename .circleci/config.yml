@@ -48,46 +48,28 @@ jobs:
           paths:
             - dist
 
-  run_release:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-          cache-path: ~/project/node_modules
-          cache-version: v1
-          override-ci-command: npm ci
-      - run:
-          name: Set up git credentials
-          command: | 
-            git config --global user.email "$GIT_USER_EMAIL"
-            git config --global user.name "$GIT_USER_NAME"
-      - run:
-          name: Run release
-          command: npm run release
-
   publish_to_npm:
-    executor: node/default  # Fixed indentation
-    environment:
-      NPM_TOKEN: $NPM_TOKEN
+    docker:
+      - image: cimg/node:20.17.0
     steps:
       - checkout
-      - attach_workspace:  # Ensures dist folder is available
+      - attach_workspace:
           at: .
       - node/install-packages:
           pkg-manager: npm
-          cache-path: ~/project/node_modules
           cache-version: v1
           override-ci-command: npm ci
-      - run: 
-          name: Login to npm 
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
       - run:
-          name: Publish to NPM
-          command: npm publish  # Fixed incorrect `npm run publish` (should be `npm publish`)
+          name: Authenticate with npm
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run:
+          name: Publish to npm
+          command: npm publish --access public
 
 workflows:
-  build_app:
+  version: 2
+  build_and_publish:
     jobs:
       - lint_code
       - run_tests:
@@ -96,9 +78,9 @@ workflows:
       - build:
           requires:
             - run_tests
-      - run_release:
-          requires:
-            - build
       - publish_to_npm:
           requires:
-            - run_release
+            - build
+          filters:
+            branches:
+              only: main

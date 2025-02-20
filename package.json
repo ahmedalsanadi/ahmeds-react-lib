@@ -2,13 +2,13 @@
   "name": "ahmeds-react-lib",
   "version": "0.0.1",
   "description": "this is a react component library",
-  "homepage": "https://github.com/ahmedalsanadi/react-lib#readme",
+  "homepage": "https://github.com/ahmedalsanadi/ahmeds-react-lib#readme",
   "bugs": {
-    "url": "https://github.com/ahmedalsanadi/react-lib/issues"
+    "url": "https://github.com/ahmedalsanadi/ahmeds-react-lib/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahmedalsanadi/react-lib.git"
+    "url": "git+https://github.com/ahmedalsanadi/ahmeds-react-lib.git"
   },
   "license": "MIT",
   "author": "Ahmed Al-Sanadi",
@@ -29,7 +29,11 @@
     "prepare": "husky",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
+    "prepublishOnly": "npm run build",
     "release": "standard-version"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "jest": {
     "testEnvironment": "jsdom"

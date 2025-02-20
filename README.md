@@ -17,7 +17,7 @@
 Install the library using npm:
 
 ```bash
-npm install ahmeds-react-component-lib
+npm install ahmeds-react-lib
 ```
 
 ## 🔍 Available Components
@@ -49,13 +49,9 @@ function MyComponent() {
 - Node.js (>=20.17.0)
 - npm (>=10.0.0)
 
-### Setup
+### Repository
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+Find the project on GitHub: [ahmeds-react-lib](https://github.com/ahmedalsanadi/ahmeds-react-lib)
 
 ### Available Scripts
 
